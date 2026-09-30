@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Indian House Price Predictor</title>
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+  <main class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="house-icon">⌂</div>
+
+      <h1>Indian House Price Predictor</h1>
+
+      <div class="title-lines">
+        <span class="green-line"></span>
+        <span class="blue-line"></span>
+      </div>
+
+      <p>
+        Enter your property details and get an estimated house price
+        using an XGBoost Machine Learning model.
+      </p>
+
+    </section>
+
+
+    <!-- FORM -->
+    <form id="house-form">
+
+      <div class="section-title">
+        Property Details
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="field-card">
+          <div class="field-icon">📍</div>
+          <label>City</label>
+
+          <select id="City">
+            <option>Ahmedabad</option>
+            <option>Amritsar</option>
+            <option>Bangalore</option>
+            <option>Bhopal</option>
+            <option>Bhubaneswar</option>
+            <option>Bilaspur</option>
+            <option>Chennai</option>
+            <option>Coimbatore</option>
+            <option>Cuttack</option>
+            <option>Dehradun</option>
+            <option>Durgapur</option>
+            <option>Dwarka</option>
+            <option>Faridabad</option>
+            <option>Gaya</option>
+            <option>Gurgaon</option>
+            <option>Guwahati</option>
+            <option>Haridwar</option>
+            <option>Hyderabad</option>
+            <option>Indore</option>
+            <option>Jaipur</option>
+            <option>Jamshedpur</option>
+            <option>Jodhpur</option>
+            <option>Kochi</option>
+            <option>Kolkata</option>
+            <option>Lucknow</option>
+            <option>Ludhiana</option>
+            <option>Mangalore</option>
+            <option>Mumbai</option>
+            <option>Mysore</option>
+            <option>Nagpur</option>
+            <option>New Delhi</option>
+            <option>Noida</option>
+            <option>Patna</option>
+            <option>Pune</option>
+            <option>Raipur</option>
+            <option>Ranchi</option>
+            <option>Silchar</option>
+            <option>Surat</option>
+            <option>Trivandrum</option>
+            <option>Vijayawada</option>
+            <option>Vishakhapatnam</option>
+            <option>Warangal</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🏢</div>
+
+          <label>Property Type</label>
+
+          <select id="Property_Type">
+            <option>Apartment</option>
+            <option>Independent House</option>
+            <option>Villa</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🛏</div>
+
+          <label>BHK</label>
+
+          <select id="BHK">
+            <option>1</option>
+            <option>2</option>
+            <option selected>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">📐</div>
+
+          <label>Size (sq ft)</label>
+
+          <input
+            type="number"
+            id="Size_in_SqFt"
+            value="1500"
+            min="500"
+            max="5000"
+          >
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🛋</div>
+
+          <label>Furnishing</label>
+
+          <select id="Furnished_Status">
+            <option>Unfurnished</option>
+            <option selected>Semi-furnished</option>
+            <option>Furnished</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🏬</div>
+
+          <label>Floor Number</label>
+
+          <input
+            type="number"
+            id="Floor_No"
+            value="5"
+            min="0"
+            max="30"
+          >
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🏙</div>
+
+          <label>Total Floors</label>
+
+          <input
+            type="number"
+            id="Total_Floors"
+            value="12"
+            min="1"
+            max="30"
+          >
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">⌛</div>
+
+          <label>Property Age</label>
+
+          <input
+            type="number"
+            id="Age_of_Property"
+            value="5"
+            min="0"
+            max="40"
+          >
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🎓</div>
+
+          <label>Nearby Schools</label>
+
+          <input
+            type="number"
+            id="Nearby_Schools"
+            value="5"
+            min="1"
+            max="10"
+          >
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🏥</div>
+
+          <label>Nearby Hospitals</label>
+
+          <input
+            type="number"
+            id="Nearby_Hospitals"
+            value="4"
+            min="1"
+            max="10"
+          >
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🚇</div>
+
+          <label>Public Transport</label>
+
+          <select id="Public_Transport_Accessibility">
+            <option>Low</option>
+            <option>Medium</option>
+            <option selected>High</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🧭</div>
+
+          <label>Facing</label>
+
+          <select id="Facing">
+            <option>East</option>
+            <option>West</option>
+            <option>North</option>
+            <option>South</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🚗</div>
+
+          <label>Parking Space</label>
+
+          <select id="Parking_Space">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🛡</div>
+
+          <label>Security</label>
+
+          <select id="Security">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">👤</div>
+
+          <label>Owner Type</label>
+
+          <select id="Owner_Type">
+            <option>Owner</option>
+            <option>Builder</option>
+            <option>Broker</option>
+          </select>
+        </div>
+
+
+        <div class="field-card">
+          <div class="field-icon">🔑</div>
+
+          <label>Availability</label>
+
+          <select id="Availability_Status">
+
+            <option value="Ready_to_Move">
+              Ready to Move
+            </option>
+
+            <option value="Under_Construction">
+              Under Construction
+            </option>
+
+          </select>
+        </div>
+
+      </div>
+
+
+      <!-- Amenities -->
+
+      <section class="amenities-section">
+
+        <div class="section-title">
+          Amenities
+        </div>
+
+        <div class="amenities">
+
+          <label class="amenity-card">
+            <input type="checkbox" class="amenity" checked>
+            <span>🏋️</span>
+            <strong>Gym</strong>
+          </label>
+
+
+          <label class="amenity-card">
+            <input type="checkbox" class="amenity" checked>
+            <span>🏊</span>
+            <strong>Pool</strong>
+          </label>
+
+
+          <label class="amenity-card">
+            <input type="checkbox" class="amenity">
+            <span>🌿</span>
+            <strong>Garden</strong>
+          </label>
+
+
+          <label class="amenity-card">
+            <input type="checkbox" class="amenity">
+            <span>🏢</span>
+            <strong>Clubhouse</strong>
+          </label>
+
+
+          <label class="amenity-card">
+            <input type="checkbox" class="amenity">
+            <span>⚽</span>
+            <strong>Playground</strong>
+          </label>
+
+        </div>
+
+      </section>
+
+
+      <button type="submit">
+        Predict House Price
+        <span>→</span>
+      </button>
+
+    </form>
+
+
+    <!-- RESULT -->
+
+    <section id="result" hidden>
+
+      <div class="result-icon">₹</div>
+
+      <p class="label">
+        Estimated Property Price
+      </p>
+
+      <p id="price-lakhs"></p>
+
+      <p id="price-crore"></p>
+
+      <small>
+        Prediction generated using XGBoost Machine Learning
+      </small>
+
+    </section>
+
+
+    <p id="error" hidden></p>
+
+
+    <p class="note">
+      Note: This dataset is synthetic. The predicted price is an estimate
+      and may differ from the actual market price.
+    </p>
+
+  </main>
+
+
+  <script src="/static/script.js"></script>
+
+</body>
+</html>
